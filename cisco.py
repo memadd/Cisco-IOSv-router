@@ -19,24 +19,25 @@ try:
     c = ConnectHandler(**switch)
     c.enable()
 
-    #inventory
-    #inventory = c.send_command('show inventory', use_textfsm=True)
-    #print(json.dumps(inventory,indent=2))
+    #inventory info
+    inventory = c.send_command('show inventory', use_textfsm=True)
+    print(json.dumps(inventory,indent=2))
 
-    #version
-    #version = c.send_command('show version', use_textfsm=True)
-    #print(json.dumps(version,indent=2))
+    #version info 
+    version = c.send_command('show version', use_textfsm=True)
+    print(json.dumps(version,indent=2))
 
     #interfaces
     interfaces = c.send_command('show interfaces', use_textfsm=True)
+    #loop over each interface
     for interface in interfaces:
+        #check interface status
         if interface['link_status'] == 'up':
             print(f"MAC address: {interface['address']}")
-    #print(json.dumps(interfaces,indent=2))
-
+    
     #interfaces-brief
-    #ints = c.send_command('show ip int brief', use_textfsm=True)
-    #print(json.dumps(ints,indent=2))
+    ints = c.send_command('show ip int brief', use_textfsm=True)
+    print(json.dumps(ints,indent=2))
     
 except Exception as e:
     print(e)    
